@@ -1,0 +1,28 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:MovieApp.ViewModel"
+        Title="Filmy do obejrzenia" Height="350" Width="500">
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+    <DockPanel>
+        <TextBox DockPanel.Dock="Top" Width="200" Margin="10"
+                 Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" 
+                 PlaceholderText="Filtruj tytuł"/>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="10">
+            <TextBox Width="300" Text="{Binding NewMovieTitle, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Content="Dodaj" Width="80" Margin="5,0,0,0" Command="{Binding AddCommand}" />
+            <Button Content="Usuń" Width="80" Margin="5,0,0,0" Command="{Binding RemoveCommand}" />
+        </StackPanel>
+        <ListBox ItemsSource="{Binding FilteredMovies}" SelectedItem="{Binding SelectedMovie}" Margin="10">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Title}" Width="350"/>
+                        <CheckBox IsChecked="{Binding Watched}" Content="Obejrzane" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+</Window>
